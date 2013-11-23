@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classess\Win32\IOCTL.cs" />
-    <Compile Include="Classess\Win32\Win32.cs" />
+    <Compile Include="Classes\Win32\IOCTL.cs" />
+    <Compile Include="Classes\Win32\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
