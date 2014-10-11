@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eclus.NET.MKO;
+using Eclus.NET.MKO.Exceptions;
 
 namespace SimpleTest
 {
@@ -15,7 +16,20 @@ namespace SimpleTest
             {
                 using (var device = mko[mko.GetPossibleDeviceNumbers().FirstOrDefault()])
                 {
-                    
+                    try
+                    {
+                        Console.WriteLine(device.tmkgetmode());
+                        device.bcreset();
+                        Console.WriteLine(device.tmkgetmode());
+                        device.rtreset();
+                        Console.WriteLine(device.tmkgetmode());
+                        device.mtreset();
+                        Console.WriteLine(device.tmkgetmode());
+                    }
+                    catch (MKODeviceException ex)
+                    {
+                        Console.WriteLine("{0}: {1}", ex.ErrorType, ex.Message);
+                    }
                 }
             }
         }
