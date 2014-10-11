@@ -2,6 +2,7 @@
 {
     public interface IMKODevice
     {
-         
+        bool Open();
+        bool Close();
     }
 }

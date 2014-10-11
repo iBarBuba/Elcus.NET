@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Eclus.NET.MKO.Interfaces;
+using System;
 
 namespace Eclus.NET.MKO
 {
-    public class MKO
+    public class MKO : IMKODevice
     {
+        #region Implementation of IMKODevice
+
+
+
+        public bool Open()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Close()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        #endregion
     }
 }
