@@ -11,9 +11,13 @@ namespace SimpleTest
     {
         static void Main(string[] args)
         {
-            var device = MKO.Find();
-            device.Open();
-            device.Close();
+            using (var mko = new MKO())
+            {
+                using (var device = mko[mko.GetPossibleDeviceNumbers().FirstOrDefault()])
+                {
+                    
+                }
+            }
         }
     }
 }

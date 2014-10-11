@@ -41,12 +41,18 @@
   <ItemGroup>
     <Compile Include="Enums\BUS.cs" />
     <Compile Include="Enums\CMD.cs" />
+    <Compile Include="Enums\CtrlCode.cs" />
+    <Compile Include="Enums\ErrorType.cs" />
+    <Compile Include="Enums\IOCTL.cs" />
     <Compile Include="Exceptions\MKODeviceException.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Interfaces\IMKODevice.cs" />
     <Compile Include="MKO.cs" />
+    <Compile Include="PCIDevice.cs" />
     <Compile Include="USBDevice.cs" />
     <Compile Include="MKOInternal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -58,6 +64,12 @@
     <Content Include="USB_TA_VC2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elcus.NET.Util\Elcus.NET.Util.csproj">
+      <Project>{56fc3c7a-07ed-40b4-8429-7489e1f801eb}</Project>
+      <Name>Elcus.NET.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

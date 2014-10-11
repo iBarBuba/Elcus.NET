@@ -1,8 +1,19 @@
-﻿namespace Eclus.NET.MKO.Interfaces
+﻿using System;
+using Eclus.NET.MKO.Exceptions;
+
+namespace Eclus.NET.MKO.Interfaces
 {
-    public interface IMKODevice
+    public interface IMKODevice : IDisposable
     {
-        bool Open();
-        bool Close();
+        int tmkgetmaxn();
+        /// <summary>
+        /// Подключиться к устройству
+        /// </summary>
+        /// <exception cref="MKODeviceException"></exception>
+        void tmkconfig();
+        /// <summary>
+        /// Завершить работу с устройством
+        /// </summary>
+        void tmkdone();
     }
 }
