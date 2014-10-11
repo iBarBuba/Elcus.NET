@@ -1,22 +1,16 @@
 ﻿using Eclus.NET.MKO.Interfaces;
-using System;
 
 namespace Eclus.NET.MKO
 {
-    public class MKO : IMKODevice
+    public sealed class MKO
     {
-        #region Implementation of IMKODevice
+        #region Public static methods
 
 
 
-        public bool Open()
+        public static IMKODevice Find()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Close()
-        {
-            throw new NotImplementedException();
+            return new USBDevice();
         }
 
 

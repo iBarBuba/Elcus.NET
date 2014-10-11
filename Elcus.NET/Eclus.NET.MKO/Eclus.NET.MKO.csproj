@@ -39,13 +39,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BUS.cs" />
+    <Compile Include="Enums\CMD.cs" />
     <Compile Include="Exceptions\MKODeviceException.cs" />
     <Compile Include="Interfaces\IMKODevice.cs" />
     <Compile Include="MKO.cs" />
+    <Compile Include="USBDevice.cs" />
+    <Compile Include="MKOInternal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="USB_TA_DRV.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="USB_TA_VC2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
