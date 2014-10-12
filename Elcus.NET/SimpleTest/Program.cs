@@ -99,6 +99,12 @@ namespace SimpleTest
                         }
 
                         Console.WriteLine("rtputblk()/rtgetblk() test {0}!", withoutErrors ? "OK" : "failed");
+
+                        device.rtdefpage(0);
+                        device.rtdefsubaddr(RTRegime.Receive, 10);
+                        Console.WriteLine(device.rtbusy());
+                        device.rtlock(RTRegime.Receive, 10);
+                        Console.WriteLine(device.rtbusy());
                     }
                     catch (MKODeviceException ex)
                     {

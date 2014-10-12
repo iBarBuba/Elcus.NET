@@ -126,6 +126,17 @@ namespace Eclus.NET.MKO.Interfaces
         /// <returns></returns>
         ushort rtgetsubaddr();
         /// <summary>
+        /// Настраивает выбранное ОУ и драйвер на дальнейшую работу с ДОЗУ в указанном подадресе и при этом блокирует подадрес для доступа со стороны МК. Если в момент
+        /// вызова идёт обмен данными с МК, то выполнение откладывается до окончания обмена. Статус блокировки можно проверить с помощью rtbusy()
+        /// </summary>
+        /// <param name="regime"></param>
+        /// <param name="rtSubAddr"></param>
+        void rtlock(RTRegime regime, ushort rtSubAddr);
+        /// <summary>
+        /// Разблокирует ранее заблокированный вызовом rtlock() подадрес
+        /// </summary>
+        void rtunlock();
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
