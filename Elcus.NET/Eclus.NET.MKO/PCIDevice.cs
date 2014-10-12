@@ -143,6 +143,15 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Проверяет занятось выбранного ранее подадреса. Возвращает True - если занят обменом, False - адрес свободен
+        /// </summary>
+        /// <returns></returns>
+        public bool rtbusy()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
