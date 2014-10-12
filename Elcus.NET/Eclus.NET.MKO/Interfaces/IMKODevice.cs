@@ -84,6 +84,17 @@ namespace Eclus.NET.MKO.Interfaces
         /// <returns></returns>
         bool rtbusy();
         /// <summary>
+        /// Сбрасывает флаг во флаговом слове текущего подадреса выбранного ОУ в режиме работы со флагами
+        /// </summary>
+        void rtclrflag();
+        /// <summary>
+        /// Функция программирует адрес выбранного ОУ в МК. Если тип устройства выбранного ОУ не поддерживает программирование адреса (адрес установлен перемычками на устройстве),
+        /// возникает ошибочная ситуация
+        /// </summary>
+        /// <param name="rtAddr">Адрес в ОУ</param>
+        /// <exception cref="MKODeviceException"></exception>
+        void rtdefaddress(ushort rtAddr);
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

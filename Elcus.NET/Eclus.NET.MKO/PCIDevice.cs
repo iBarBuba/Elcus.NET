@@ -152,6 +152,25 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Сбрасывает флаг во флаговом слове текущего подадреса выбранного ОУ в режиме работы со флагами
+        /// </summary>
+        public void rtclrflag()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Функция программирует адрес выбранного ОУ в МК. Если тип устройства выбранного ОУ не поддерживает программирование адреса (адрес установлен перемычками на устройстве),
+        /// возникает ошибочная ситуация
+        /// </summary>
+        /// <param name="rtAddr">Адрес в ОУ</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefaddress(ushort rtAddr)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

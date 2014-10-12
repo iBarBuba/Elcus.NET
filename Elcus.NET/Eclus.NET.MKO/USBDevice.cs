@@ -438,6 +438,32 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Сбрасывает флаг во флаговом слове текущего подадреса выбранного ОУ в режиме работы со флагами
+        /// </summary>
+        public void rtclrflag()
+        {
+            rtclrflag_usb();
+        }
+
+        /// <summary>
+        /// Функция программирует адрес выбранного ОУ в МК. Если тип устройства выбранного ОУ не поддерживает программирование адреса (адрес установлен перемычками на устройстве),
+        /// возникает ошибочная ситуация
+        /// </summary>
+        /// <param name="rtAddr">Адрес в ОУ</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefaddress(ushort rtAddr)
+        {
+            switch ((ErrorType)rtdefaddress_usb(rtAddr))
+            {
+                case ErrorType.RT_BAD_FUNC:
+                    throw new MKODeviceException(ErrorType.RT_BAD_FUNC,
+                        @"Выбранное устройство не поддерживает программное задание адреса ОУ в МК");
+                case ErrorType.RT_BAD_ADDRESS:
+                    throw new MKODeviceException(ErrorType.RT_BAD_ADDRESS, @"Указан недопустимы адрес в ОУ");
+            }
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

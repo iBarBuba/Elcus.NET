@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AnswerWord.cs" />
     <Compile Include="Enums\BUS.cs" />
     <Compile Include="Enums\CMD.cs" />
     <Compile Include="Enums\CtrlCode.cs" />

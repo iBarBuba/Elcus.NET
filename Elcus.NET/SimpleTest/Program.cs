@@ -99,6 +99,7 @@ namespace SimpleTest
                         }
 
                         Console.WriteLine("rtputblk()/rtgetblk() test {0}!", withoutErrors ? "OK" : "failed");
+
                     }
                     catch (MKODeviceException ex)
                     {
