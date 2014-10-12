@@ -464,6 +464,24 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Установка режимов прерывания ОУ
+        /// </summary>
+        /// <param name="mode">Режим прерывания ОУ</param>
+        public void rtdefirqmode(ushort mode)
+        {
+            rtdefirqmode_usb(mode);
+        }
+
+        /// <summary>
+        /// Текущее значение режимов прерывания ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetirqmode()
+        {
+            return rtgetirqmode_usb();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

@@ -95,6 +95,16 @@ namespace Eclus.NET.MKO.Interfaces
         /// <exception cref="MKODeviceException"></exception>
         void rtdefaddress(ushort rtAddr);
         /// <summary>
+        /// Установка режимов прерывания ОУ
+        /// </summary>
+        /// <param name="mode">Режим прерывания ОУ</param>
+        void rtdefirqmode(ushort mode);
+        /// <summary>
+        /// Текущее значение режимов прерывания ОУ
+        /// </summary>
+        /// <returns></returns>
+        ushort rtgetirqmode();
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
