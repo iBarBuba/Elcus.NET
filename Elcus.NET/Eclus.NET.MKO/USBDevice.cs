@@ -482,6 +482,27 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Программирует режим работы выбранного ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefmode(ushort mode)
+        {
+            if ((ErrorType)rtdefmode_usb(mode) != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.RT_BAD_FUNC,
+                    @"Выбранное ОУ не поддерживает программное задание режимов работы");
+        }
+
+        /// <summary>
+        /// Получает режим работы ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetmode()
+        {
+            return rtgetmode_usb();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

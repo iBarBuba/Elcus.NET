@@ -105,6 +105,17 @@ namespace Eclus.NET.MKO.Interfaces
         /// <returns></returns>
         ushort rtgetirqmode();
         /// <summary>
+        /// Программирует режим работы выбранного ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        void rtdefmode(ushort mode);
+        /// <summary>
+        /// Получает режим работы ОУ
+        /// </summary>
+        /// <returns></returns>
+        ushort rtgetmode();
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

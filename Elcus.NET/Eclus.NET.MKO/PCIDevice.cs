@@ -189,6 +189,25 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Программирует режим работы выбранного ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefmode(ushort mode)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Получает режим работы ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetmode()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
