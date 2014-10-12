@@ -17,8 +17,8 @@ namespace Eclus.NET.MKO
         private readonly int m_DeviceNum;
         private IntPtr m_DeviceHandle;
         private IntPtr m_DeviceEvent;
-        private readonly ushort[] m_InBuf = new ushort[4];
-        private readonly ushort[] m_OutBuf = new ushort[6];
+        private ushort[] m_InBuf = new ushort[4];
+        private ushort[] m_OutBuf = new ushort[6];
         private int m_Result;
 
 
@@ -339,6 +339,56 @@ namespace Eclus.NET.MKO
         {
             if ((ErrorType)rtreset_usb() != ErrorType.TMK_SUCCESSFULL)
                 throw new MKODeviceException(ErrorType.TMK_BAD_FUNC, @"Устройство не поддерживает работу в режиме ОУ");
+        }
+
+        /// <summary>
+        /// Возвращает максимальное число адресуемых страниц в памяти ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetmaxpage()
+        {
+            return rtgetmaxpage_usb();
+        }
+
+        /// <summary>
+        /// Выбрать страницу в памяти ОУ, с которой будем работать
+        /// </summary>
+        /// <param name="rtPage"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefpage(ushort rtPage)
+        {
+            if ((ErrorType)rtdefpage_usb(rtPage) != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.RT_BAD_PAGE, @"Задан недопустимый номер в ДОЗУ");
+        }
+
+        /// <summary>
+        /// Выбрать подадрес в выбранной странице в ДОЗУ ОУ
+        /// </summary>
+        /// <param name="regime">Режим работы подадреса (прием/передача данных)</param>
+        /// <param name="rtSubAddr">Подадрес</param>
+        public void rtdefsubaddr(RTRegime regime, ushort rtSubAddr)
+        {
+            rtdefsubaddr_usb((ushort)regime, rtSubAddr);
+        }
+
+        /// <summary>
+        /// Записать слово данных <paramref name="rtData"/> по адресу <paramref name="rtAddr"/>
+        /// </summary>
+        /// <param name="rtAddr">Адрес в памяти ОУ</param>
+        /// <param name="rtData">Слово данных</param>
+        public void rtputw(ushort rtAddr, ushort rtData)
+        {
+            rtputw_usb(rtAddr, rtData);
+        }
+
+        /// <summary>
+        /// Получить слово данных, находящееся в памяти ОУ по адресу <paramref name="rtAddr"/>
+        /// </summary>
+        /// <param name="rtAddr">Адрес в памяти ОУ</param>
+        /// <returns></returns>
+        public ushort rtgetw(ushort rtAddr)
+        {
+            return rtgetw_usb(rtAddr);
         }
 
         /// <summary>

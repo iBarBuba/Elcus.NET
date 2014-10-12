@@ -73,6 +73,55 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Возвращает максимальное число адресуемых страниц в памяти ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetmaxpage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Выбрать страницу в памяти ОУ, с которой будем работать
+        /// </summary>
+        /// <param name="rtPage"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void rtdefpage(ushort rtPage)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Выбрать подадрес в выбранной странице в ДОЗУ ОУ
+        /// </summary>
+        /// <param name="regime">Режим работы подадреса (прием/передача данных)</param>
+        /// <param name="rtSubAddr">Подадрес</param>
+        public void rtdefsubaddr(RTRegime regime, ushort rtSubAddr)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Записать слово данных <paramref name="rtData"/> по адресу <paramref name="rtAddr"/>
+        /// </summary>
+        /// <param name="rtAddr">Адрес в памяти ОУ</param>
+        /// <param name="rtData">Слово данных</param>
+        public void rtputw(ushort rtAddr, ushort rtData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Получить слово данных, находящееся в памяти ОУ по адресу <paramref name="rtAddr"/>
+        /// </summary>
+        /// <param name="rtAddr">Адрес в памяти ОУ</param>
+        /// <returns></returns>
+        public ushort rtgetw(ushort rtAddr)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
