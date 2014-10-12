@@ -116,6 +116,16 @@ namespace Eclus.NET.MKO.Interfaces
         /// <returns></returns>
         ushort rtgetmode();
         /// <summary>
+        /// Номер текущей страницу в ДОЗУ ОУ
+        /// </summary>
+        /// <returns></returns>
+        ushort rtgetpage();
+        /// <summary>
+        /// Номер текущего подадреса с битом "приём/передача"
+        /// </summary>
+        /// <returns></returns>
+        ushort rtgetsubaddr();
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

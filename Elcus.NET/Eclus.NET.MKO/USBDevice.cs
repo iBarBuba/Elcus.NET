@@ -503,6 +503,24 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Номер текущей страницу в ДОЗУ ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetpage()
+        {
+            return rtgetpage_usb();
+        }
+
+        /// <summary>
+        /// Номер текущего подадреса с битом "приём/передача"
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetsubaddr()
+        {
+            return rtgetsubaddr_usb();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

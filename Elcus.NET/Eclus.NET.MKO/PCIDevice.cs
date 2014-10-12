@@ -208,6 +208,24 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Номер текущей страницу в ДОЗУ ОУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetpage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Номер текущего подадреса с битом "приём/передача"
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetsubaddr()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
