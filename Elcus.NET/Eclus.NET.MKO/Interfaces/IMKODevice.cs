@@ -54,6 +54,19 @@ namespace Eclus.NET.MKO.Interfaces
         /// <param name="rtSubAddr">Подадрес</param>
         void rtdefsubaddr(RTRegime regime, ushort rtSubAddr);
         /// <summary>
+        /// Записать блок данных <paramref name="data"/> по адресу <paramref name="rtAddr"/> в выбарнный подадрес в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Данные</param>
+        void rtputblk(ushort rtAddr, ushort[] data);
+        /// <summary>
+        /// Считать блок данных по адресу <paramref name="rtAddr"/> из выбранного подадреса в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Блок данных, куда поместить ответ</param>
+        /// <returns></returns>
+        void rtgetblk(ushort rtAddr, ref ushort[] data);
+        /// <summary>
         /// Записать слово данных <paramref name="rtData"/> по адресу <paramref name="rtAddr"/>
         /// </summary>
         /// <param name="rtAddr">Адрес в памяти ОУ</param>

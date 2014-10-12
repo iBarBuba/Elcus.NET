@@ -372,6 +372,43 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Записать блок данных <paramref name="data"/> по адресу <paramref name="rtAddr"/> в выбарнный подадрес в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Данные</param>
+        public void rtputblk(ushort rtAddr, ushort[] data)
+        {
+            var length = data.Length > 32 ? 32 : data.Length;
+            var source = new short[length];
+            for (var index = 0; index < length; index++)
+                source[index] = BitConverter.ToInt16(BitConverter.GetBytes(data[index]), 0);
+            var ptr = Marshal.AllocHGlobal(2 * length);
+            Marshal.Copy(source, 0, ptr, length);
+
+            rtputblk_usb(rtAddr, ptr, (ushort)length);
+        }
+
+        /// <summary>
+        /// Считать блок данных по адресу <paramref name="rtAddr"/> из выбранного подадреса в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Блок данных, куда поместить ответ</param>
+        /// <returns></returns>
+        public void rtgetblk(ushort rtAddr, ref ushort[] data)
+        {
+            var length = data.Length > 32 ? 32 : data.Length;
+            var destination = new short[length];
+            var ptr = Marshal.AllocHGlobal(2 * length);
+
+            rtgetblk_usb(rtAddr, ptr, (ushort)length);
+
+            Marshal.Copy(ptr, destination, 0, length);
+            Marshal.FreeHGlobal(ptr);
+            for (var index = 0; index < length; index++)
+                data[index] = BitConverter.ToUInt16(BitConverter.GetBytes(destination[index]), 0);
+        }
+
+        /// <summary>
         /// Записать слово данных <paramref name="rtData"/> по адресу <paramref name="rtAddr"/>
         /// </summary>
         /// <param name="rtAddr">Адрес в памяти ОУ</param>

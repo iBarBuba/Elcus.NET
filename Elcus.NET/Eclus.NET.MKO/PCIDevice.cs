@@ -102,6 +102,27 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Записать блок данных <paramref name="data"/> по адресу <paramref name="rtAddr"/> в выбарнный подадрес в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Данные</param>
+        public void rtputblk(ushort rtAddr, ushort[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Считать блок данных по адресу <paramref name="rtAddr"/> из выбранного подадреса в выбранной странице ДОЗУ ОУ
+        /// </summary>
+        /// <param name="rtAddr">Адрес</param>
+        /// <param name="data">Блок данных, куда поместить ответ</param>
+        /// <returns></returns>
+        public void rtgetblk(ushort rtAddr, ref ushort[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Записать слово данных <paramref name="rtData"/> по адресу <paramref name="rtAddr"/>
         /// </summary>
         /// <param name="rtAddr">Адрес в памяти ОУ</param>
