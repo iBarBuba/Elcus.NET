@@ -95,6 +95,11 @@ namespace Eclus.NET.MKO.Interfaces
         /// <exception cref="MKODeviceException"></exception>
         void rtdefaddress(ushort rtAddr);
         /// <summary>
+        /// Получить адрес ОУ в МК
+        /// </summary>
+        /// <returns></returns>
+        ushort rtgetaddress();
+        /// <summary>
         /// Установка режимов прерывания ОУ
         /// </summary>
         /// <param name="mode">Режим прерывания ОУ</param>

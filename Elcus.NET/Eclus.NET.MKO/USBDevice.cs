@@ -464,6 +464,15 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Получить адрес ОУ в МК
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetaddress()
+        {
+            return rtgetaddress_usb();
+        }
+
+        /// <summary>
         /// Установка режимов прерывания ОУ
         /// </summary>
         /// <param name="mode">Режим прерывания ОУ</param>

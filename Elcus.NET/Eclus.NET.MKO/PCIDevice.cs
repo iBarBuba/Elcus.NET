@@ -171,6 +171,15 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Получить адрес ОУ в МК
+        /// </summary>
+        /// <returns></returns>
+        public ushort rtgetaddress()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Установка режимов прерывания ОУ
         /// </summary>
         /// <param name="mode">Режим прерывания ОУ</param>
