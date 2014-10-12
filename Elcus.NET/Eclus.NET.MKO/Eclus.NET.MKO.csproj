@@ -46,6 +46,7 @@
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\IOCTL.cs" />
     <Compile Include="Enums\Mode.cs" />
+    <Compile Include="Enums\RTEnableMode.cs" />
     <Compile Include="Enums\RTIrqMode.cs" />
     <Compile Include="Enums\RTMode.cs" />
     <Compile Include="Enums\RTRegime.cs" />

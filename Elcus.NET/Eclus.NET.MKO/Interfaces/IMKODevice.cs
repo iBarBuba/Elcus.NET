@@ -137,6 +137,12 @@ namespace Eclus.NET.MKO.Interfaces
         /// </summary>
         void rtunlock();
         /// <summary>
+        /// Включить/выбранное устройство ОУ, не выключая сам режим ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        RTEnableMode rtenable(RTEnableMode mode);
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

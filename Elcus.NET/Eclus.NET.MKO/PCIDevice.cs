@@ -245,6 +245,16 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Включить/выбранное устройство ОУ, не выключая сам режим ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public RTEnableMode rtenable(RTEnableMode mode)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

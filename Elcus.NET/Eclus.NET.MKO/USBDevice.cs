@@ -540,6 +540,24 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Включить/выбранное устройство ОУ, не выключая сам режим ОУ
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        /// <exception cref="MKODeviceException"></exception>
+        public RTEnableMode rtenable(RTEnableMode mode)
+        {
+            if (mode == RTEnableMode.RT_GET_ENABLE)
+                return (RTEnableMode)rtenable_usb((ushort)mode);
+
+            var result = rtenable_usb((ushort)mode);
+            if ((ErrorType)result != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.RT_BAD_FUNC, @"Ошибка задания параметра");
+
+            return (RTEnableMode)rtenable_usb((ushort)RTEnableMode.RT_GET_ENABLE);
+        }
+
+        /// <summary>
         /// Включить режим монитора
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>
