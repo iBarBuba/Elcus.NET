@@ -395,9 +395,9 @@ namespace Eclus.NET.MKO
         /// </summary>
         /// <param name="hEvent">Обработчик события</param>
         /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
-        public MKOEvents WaitForEvents(IntPtr hEvent, uint milliseconds)
+        public MKOEvents WaitForEvents(uint milliseconds)
         {
-            return (MKOEvents)Win32.WaitForSingleObject(hEvent, milliseconds);
+            return (MKOEvents)Win32.WaitForSingleObject(m_DeviceEvent, milliseconds);
         }
 
         /// <summary>

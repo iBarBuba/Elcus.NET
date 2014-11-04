@@ -34,9 +34,8 @@ namespace Eclus.NET.MKO.Interfaces
         /// <summary>
         /// Ожидание наступления события от МКО
         /// </summary>
-        /// <param name="hEvent">Обработчик события</param>
         /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
-        MKOEvents WaitForEvents(IntPtr hEvent, uint milliseconds);
+        MKOEvents WaitForEvents(uint milliseconds);
         /// <summary>
         /// Получить режим работы устройства
         /// </summary>
