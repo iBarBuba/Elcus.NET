@@ -41,12 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Events\BC.cs" />
+    <Compile Include="Data\Events\BCx.cs" />
+    <Compile Include="Data\Events\ListEvD.cs" />
+    <Compile Include="Data\Events\MRT.cs" />
+    <Compile Include="Data\Events\MT.cs" />
+    <Compile Include="Data\Events\RT.cs" />
+    <Compile Include="Data\Events\TmkEventData.cs" />
+    <Compile Include="GeneralDevice.cs" />
     <Compile Include="Enums\AnswerWord.cs" />
     <Compile Include="Enums\BUS.cs" />
     <Compile Include="Enums\CMD.cs" />
     <Compile Include="Enums\CtrlCode.cs" />
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\IOCTL.cs" />
+    <Compile Include="Enums\MKOEvents.cs" />
     <Compile Include="Enums\Mode.cs" />
     <Compile Include="Enums\RTEnableMode.cs" />
     <Compile Include="Enums\RTIrqMode.cs" />
@@ -62,9 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="USB_TA_DRV.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

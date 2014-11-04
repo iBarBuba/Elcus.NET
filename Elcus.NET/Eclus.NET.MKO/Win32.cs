@@ -38,6 +38,16 @@ namespace Eclus.NET.MKO
             out int lpBytesReturned,
             [MarshalAs(UnmanagedType.LPArray), In] ushort[] lpOverlapped);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr CreateEvent(IntPtr lpEventAttributes, bool bManualReset, bool bInitialState,
+            string lpName);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
+
+        [DllImport("kernel32.dll")]
+        internal static extern bool ResetEvent(IntPtr hHandle);
+
         internal static int CTL_CODE(int Code)
         {
             return CTL_CODE(IOCTL.FILE_DEVICE_UNKNOWN, Code, IOCTL.METHOD_BUFFERED, IOCTL.FILE_ANY_ACCESS);

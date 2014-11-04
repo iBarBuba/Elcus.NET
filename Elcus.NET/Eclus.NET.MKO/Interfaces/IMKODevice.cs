@@ -1,4 +1,5 @@
 ﻿using System;
+using Eclus.NET.MKO.Data.Events;
 using Eclus.NET.MKO.Enums;
 using Eclus.NET.MKO.Exceptions;
 
@@ -21,6 +22,21 @@ namespace Eclus.NET.MKO.Interfaces
         /// Завершить работу с устройством
         /// </summary>
         void tmkdone();
+        /// <summary>
+        /// Получить данные по состоявшемуся прерыванию в МКО
+        /// </summary>
+        /// <param name="evd"></param>
+        void tmkgetevd(ref TmkEventData evd);
+        /// <summary>
+        /// Проинициализировать обработчики событий
+        /// </summary>
+        void initevents();
+        /// <summary>
+        /// Ожидание наступления события от МКО
+        /// </summary>
+        /// <param name="hEvent">Обработчик события</param>
+        /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
+        MKOEvents WaitForEvents(IntPtr hEvent, uint milliseconds);
         /// <summary>
         /// Получить режим работы устройства
         /// </summary>

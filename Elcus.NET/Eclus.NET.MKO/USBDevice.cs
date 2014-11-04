@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
+using Eclus.NET.MKO.Data.Events;
 using Eclus.NET.MKO.Enums;
 using Eclus.NET.MKO.Exceptions;
 using Eclus.NET.MKO.Interfaces;
@@ -7,7 +8,7 @@ using System;
 
 namespace Eclus.NET.MKO
 {
-    internal class USBDevice : IMKODevice
+    internal class USBDevice : GeneralDevice, IMKODevice
     {
         #region Private fields
 
@@ -310,6 +311,93 @@ namespace Eclus.NET.MKO
             m_DeviceHandle = IntPtr.Zero;
             m_DeviceEvent = IntPtr.Zero;
             tmkdone_usb(m_DeviceNum);
+        }
+
+        /// <summary>
+        /// Получить данные по состоявшемуся прерыванию в МКО
+        /// </summary>
+        /// <param name="evd"></param>
+        public void tmkgetevd(ref TmkEventData evd)
+        {
+            var listEvD = new ListEvD();
+            var ptr = Marshal.AllocHGlobal(Marshal.SizeOf(listEvD));
+            Marshal.StructureToPtr(listEvD, ptr, false);
+            Read_DLL_EvD_usb(ptr);
+            var result = new ListEvD();
+            result = (ListEvD)Marshal.PtrToStructure(ptr, typeof (ListEvD));
+            
+            evd.Int = result.nInt;
+            evd.Mode = (ushort)result.wMode;
+            switch (evd.Mode)
+            {
+                case 0:
+                    switch (evd.Int)
+                    {
+                        case 1:
+                            evd.bc.Result = (ushort)result.awEvData[0];
+                            return;
+                        case 2:
+                            evd.bc.Result = (ushort)result.awEvData[0];
+                            evd.bc.AW1 = (ushort)result.awEvData[1];
+                            evd.bc.AW2 = (ushort)result.awEvData[2];
+                            return;
+                        case 3:
+                            evd.bcx.ResultX = (ushort)result.awEvData[0];
+                            evd.bcx.Base = (ushort)result.awEvData[1];
+                            return;
+                        case 4:
+                            evd.bcx.Base = (ushort)result.awEvData[0];
+                            return;
+                        default:
+                            return;
+                    }
+                case 128:
+                    switch (evd.Int)
+                    {
+                        case 1:
+                        case 2:
+                        case 3:
+                            evd.rt.Cmd = (ushort)result.awEvData[0];
+                            return;
+                        default:
+                            return;
+                    }
+                case 256:
+                    switch (evd.Int)
+                    {
+                        case 3:
+                            evd.mt.ResultX = (ushort)result.awEvData[0];
+                            evd.mt.Base = (ushort)result.awEvData[1];
+                            return;
+                        case 4:
+                            evd.mt.Base = (ushort)result.awEvData[0];
+                            return;
+                        default:
+                            return;
+                    }
+            }
+        }
+
+        /// <summary>
+        /// Проинициализировать обработчики событий
+        /// </summary>
+        public void initevents()
+        {
+            m_DeviceEvent = CreateEvent();
+
+            tmkdefevent_usb(m_DeviceEvent);
+
+            ResetEvent(m_DeviceEvent);
+        }
+
+        /// <summary>
+        /// Ожидание наступления события от МКО
+        /// </summary>
+        /// <param name="hEvent">Обработчик события</param>
+        /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
+        public MKOEvents WaitForEvents(IntPtr hEvent, uint milliseconds)
+        {
+            return (MKOEvents)Win32.WaitForSingleObject(hEvent, milliseconds);
         }
 
         /// <summary>

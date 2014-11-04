@@ -1,10 +1,12 @@
-﻿using Eclus.NET.MKO.Enums;
+﻿using System;
+using Eclus.NET.MKO.Data.Events;
+using Eclus.NET.MKO.Enums;
 using Eclus.NET.MKO.Exceptions;
 using Eclus.NET.MKO.Interfaces;
 
 namespace Eclus.NET.MKO
 {
-    internal class PCIDevice : IMKODevice
+    internal class PCIDevice : GeneralDevice, IMKODevice
     {
         #region Public constructors
 
@@ -42,6 +44,33 @@ namespace Eclus.NET.MKO
         }
 
         public void tmkdone()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Получить данные по состоявшемуся прерыванию в МКО
+        /// </summary>
+        /// <param name="evd"></param>
+        public void tmkgetevd(ref TmkEventData evd)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Проинициализировать обработчики событий
+        /// </summary>
+        public void initevents()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Ожидание наступления события от МКО
+        /// </summary>
+        /// <param name="hEvent">Обработчик события</param>
+        /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
+        public MKOEvents WaitForEvents(IntPtr hEvent, uint milliseconds)
         {
             throw new System.NotImplementedException();
         }
