@@ -93,6 +93,104 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
+        /// Возвращает максимально допустимое значение базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort bcgetmaxbase()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Настраивает выбранный контроллер канала на дальнейшую работу с ДОЗУ в указанной базе.
+        /// </summary>
+        /// <param name="bcBase">База</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcdefbase(ushort bcBase)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Возвращает номер текущей выбранной базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort bcgetbase()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Записывает слово <paramref name="bcData"/> по адресу <paramref name="bcAddr"/>
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <param name="bcData">Записываемое слово</param>
+        public void bcputw(ushort bcAddr, ushort bcData)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Возвращает слово данных, записанное по адресу <paramref name="bcAddr"/> в выбранной базе
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <returns></returns>
+        public ushort bcgetw(ushort bcAddr)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Записывает указанное количество слов в выбранную базу ДОЗУ выбранного КК, начиная с адреса <paramref name="bcAddr"/>
+        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слова данных</param>
+        public void bcputblk(ushort bcAddr, ushort[] bcData)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Считывает указанное количество слов из выбранной базы ДОЗУ. Первое слово считывается по адресу <paramref name="bcAddr"/>
+        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слово данных</param>
+        public void bcgetblk(ushort bcAddr, ref ushort[] bcData)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Выбирает основную/резервную ЛПИ для обмена данными
+        /// </summary>
+        /// <param name="bus"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcdefbus(BUS bus)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Возвращает номер текущей выбранной ЛПИ
+        /// </summary>
+        /// <returns></returns>
+        public BUS bcgetbus()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Инициирует начало обмена по ЛПИ МК, заданной заранее в вызове 
+        /// </summary>
+        /// <param name="bcBase">Выбранная база ДОЗУ</param>
+        /// <param name="code">Код управления, задающий формат обмена</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcstart(ushort bcBase, CtrlCode code)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Включить режим оконечного устройства
         /// </summary>
         public void rtreset()

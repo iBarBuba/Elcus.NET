@@ -47,6 +47,68 @@ namespace Eclus.NET.MKO.Interfaces
         /// <exception cref="MKODeviceException"></exception>
         void bcreset();
         /// <summary>
+        /// Возвращает максимально допустимое значение базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        ushort bcgetmaxbase();
+        /// <summary>
+        /// Настраивает выбранный контроллер канала на дальнейшую работу с ДОЗУ в указанной базе.
+        /// </summary>
+        /// <param name="bcBase">База</param>
+        /// <exception cref="MKODeviceException"></exception>
+        void bcdefbase(ushort bcBase);
+        /// <summary>
+        /// Возвращает номер текущей выбранной базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        ushort bcgetbase();
+        /// <summary>
+        /// Записывает слово <paramref name="bcData"/> по адресу <paramref name="bcAddr"/>
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <param name="bcData">Записываемое слово</param>
+        void bcputw(ushort bcAddr, ushort bcData);
+        /// <summary>
+        /// Возвращает слово данных, записанное по адресу <paramref name="bcAddr"/> в выбранной базе
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <returns></returns>
+        ushort bcgetw(ushort bcAddr);
+        /// <summary>
+        /// Записывает указанное количество слов в выбранную базу ДОЗУ выбранного КК, начиная с адреса <paramref name="bcAddr"/>.
+        /// Если происходит попытка записать данных больше, чем это возможно: <paramref name="bcAddr"/> = 62, а данных записывается 10 слов, то
+        /// запишутся только первые два слова. Будьте внимательны
+        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слова данных</param>
+        void bcputblk(ushort bcAddr, ushort[] bcData);
+        /// <summary>
+        /// Считывает указанное количество слов из выбранной базы ДОЗУ. Первое слово считывается по адресу <paramref name="bcAddr"/>.
+        /// Если происходит попытка считать данных больше, чем это возможно: <paramref name="bcAddr"/> = 62, а есть желание считать 10 слов, то
+        /// будет считано только первые два слова. Будьте внимательны
+        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слово данных</param>
+        void bcgetblk(ushort bcAddr, ref ushort[] bcData);
+        /// <summary>
+        /// Выбирает основную/резервную ЛПИ для обмена данными
+        /// </summary>
+        /// <param name="bus"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        void bcdefbus(BUS bus);
+        /// <summary>
+        /// Возвращает номер текущей выбранной ЛПИ
+        /// </summary>
+        /// <returns></returns>
+        BUS bcgetbus();
+        /// <summary>
+        /// Инициирует начало обмена по ЛПИ МК, заданной заранее в вызове 
+        /// </summary>
+        /// <param name="bcBase">Выбранная база ДОЗУ</param>
+        /// <param name="code">Код управления, задающий формат обмена</param>
+        /// <exception cref="MKODeviceException"></exception>
+        void bcstart(ushort bcBase, CtrlCode code);
+        /// <summary>
         /// Включить режим оконечного устройства
         /// </summary>
         /// <exception cref="MKODeviceException"></exception>

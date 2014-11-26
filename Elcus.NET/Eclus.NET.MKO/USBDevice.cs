@@ -323,9 +323,8 @@ namespace Eclus.NET.MKO
             var ptr = Marshal.AllocHGlobal(Marshal.SizeOf(listEvD));
             Marshal.StructureToPtr(listEvD, ptr, false);
             Read_DLL_EvD_usb(ptr);
-            var result = new ListEvD();
-            result = (ListEvD)Marshal.PtrToStructure(ptr, typeof (ListEvD));
-            
+            var result = (ListEvD)Marshal.PtrToStructure(ptr, typeof (ListEvD));
+            Marshal.FreeHGlobal(ptr);
             evd.Int = result.nInt;
             evd.Mode = (ushort)result.wMode;
             switch (evd.Mode)
@@ -397,7 +396,10 @@ namespace Eclus.NET.MKO
         /// <param name="milliseconds">Время, мс, ожидания наступления события</param>
         public MKOEvents WaitForEvents(uint milliseconds)
         {
-            return (MKOEvents)Win32.WaitForSingleObject(m_DeviceEvent, milliseconds);
+            var result = (MKOEvents)Win32.WaitForSingleObject(m_DeviceEvent, milliseconds);
+            ResetEvent(m_DeviceEvent);
+            
+            return result;
         }
 
         /// <summary>
@@ -417,6 +419,134 @@ namespace Eclus.NET.MKO
         {
             if ((ErrorType)bcreset_usb() != ErrorType.TMK_SUCCESSFULL)
                 throw new MKODeviceException(ErrorType.TMK_BAD_FUNC, @"Устройство не поддерживает работу в режиме КК");
+        }
+
+        /// <summary>
+        /// Возвращает максимально допустимое значение базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort bcgetmaxbase()
+        {
+            return bcgetmaxbase_usb();
+        }
+
+        /// <summary>
+        /// Настраивает выбранный контроллер канала на дальнейшую работу с ДОЗУ в указанной базе.
+        /// </summary>
+        /// <param name="bcBase">База</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcdefbase(ushort bcBase)
+        {
+            if ((ErrorType)bcdefbase_usb(bcBase) != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.BC_BAD_BASE, @"Указано некорректное значение базы в ДОЗУ");
+        }
+
+        /// <summary>
+        /// Возвращает номер текущей выбранной базы в ДОЗУ
+        /// </summary>
+        /// <returns></returns>
+        public ushort bcgetbase()
+        {
+            return bcgetbase_usb();
+        }
+
+        /// <summary>
+        /// Записывает слово <paramref name="bcData"/> по адресу <paramref name="bcAddr"/>
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <param name="bcData">Записываемое слово</param>
+        public void bcputw(ushort bcAddr, ushort bcData)
+        {
+            bcputw_usb(bcAddr, bcData);
+        }
+
+        /// <summary>
+        /// Возвращает слово данных, записанное по адресу <paramref name="bcAddr"/> в выбранной базе
+        /// </summary>
+        /// <param name="bcAddr">Адрес в выбранной базе (0-63)</param>
+        /// <returns></returns>
+        public ushort bcgetw(ushort bcAddr)
+        {
+            return bcgetw_usb(bcAddr);
+        }
+
+        /// <summary>
+        /// Записывает указанное количество слов в выбранную базу ДОЗУ выбранного КК, начиная с адреса <paramref name="bcAddr"/>.
+        /// Если происходит попытка записать данных больше, чем это возможно: <paramref name="bcAddr"/> = 62, а данных записывается 10 слов, то
+        /// запишутся только первые два слова. Будьте внимательны        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слова данных</param>
+        public void bcputblk(ushort bcAddr, ushort[] bcData)
+        {
+            var trueLength = 64 - bcAddr >= bcData.Length ? bcData.Length : 64 - bcAddr;
+            var data = new short[trueLength];
+
+            for (var i = 0; i < trueLength; i++)
+            {
+                data[i] = BitConverter.ToInt16(BitConverter.GetBytes(bcData[i]), 0);
+            }
+
+            var ptr = Marshal.AllocHGlobal(trueLength*2);
+            Marshal.Copy(data, 0, ptr, trueLength);
+
+            bcputblk_usb(bcAddr, ptr, trueLength);
+
+            Marshal.FreeHGlobal(ptr);
+        }
+
+        /// <summary>
+        /// Считывает указанное количество слов из выбранной базы ДОЗУ. Первое слово считывается по адресу <paramref name="bcAddr"/>.
+        /// Если происходит попытка считать данных больше, чем это возможно: <paramref name="bcAddr"/> = 62, а есть желание считать 10 слов, то
+        /// будет считано только первые два слова. Будьте внимательны
+        /// </summary>
+        /// <param name="bcAddr">Начальный адрес в выбранной базе</param>
+        /// <param name="bcData">Слово данных</param>
+        public void bcgetblk(ushort bcAddr, ref ushort[] bcData)
+        {
+            var trueLength = 64 - bcAddr >= bcData.Length ? bcData.Length : 64 - bcAddr;
+
+            var data = new short[trueLength];
+            var ptr = Marshal.AllocHGlobal(2*trueLength);
+
+            bcgetblk_usb(bcAddr, ptr, trueLength);
+            Marshal.Copy(ptr, data, 0, trueLength);
+
+            for (var i = 0; i < trueLength; i++)
+                bcData[i] = BitConverter.ToUInt16(BitConverter.GetBytes(data[i]), 0);
+
+            Marshal.FreeHGlobal(ptr);
+        }
+
+        /// <summary>
+        /// Выбирает основную/резервную ЛПИ для обмена данными
+        /// </summary>
+        /// <param name="bus"></param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcdefbus(BUS bus)
+        {
+            if ((ErrorType)bcdefbus_usb((ushort)bus) != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.BC_BAD_BUS, @"Указана некорректная ЛПИ");
+        }
+
+        /// <summary>
+        /// Возвращает номер текущей выбранной ЛПИ
+        /// </summary>
+        /// <returns></returns>
+        public BUS bcgetbus()
+        {
+            return (BUS) bcgetbus_usb();
+        }
+
+        /// <summary>
+        /// Инициирует начало обмена по ЛПИ МК, заданной заранее в вызове 
+        /// </summary>
+        /// <param name="bcBase">Выбранная база ДОЗУ</param>
+        /// <param name="code">Код управления, задающий формат обмена</param>
+        /// <exception cref="MKODeviceException"></exception>
+        public void bcstart(ushort bcBase, CtrlCode code)
+        {
+            if((ErrorType)bcstart_usb(bcBase, (ushort)code) != ErrorType.TMK_SUCCESSFULL)
+                throw new MKODeviceException(ErrorType.BC_BAD_BASE, @"Заданное значение базы находится в недопустимом диапазоне");
         }
 
         /// <summary>

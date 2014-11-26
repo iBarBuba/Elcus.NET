@@ -109,7 +109,7 @@ namespace Eclus.NET.MKO
             get
             {
                 if (m_DeviceHandle[num] != IntPtr.Zero)
-                    throw new MKODeviceException(ErrorType.TMK_BAD_NUMBER);
+                    throw new MKODeviceException(ErrorType.TMK_BAD_NUMBER, @"Invalid device number");
 
                 return m_USBFlag[num]
                     ? (new USBDevice(num - (!m_HasPCIDevices ? 8 : 7), m_DeviceHandle.Count(i => i == IntPtr.Zero)) as
