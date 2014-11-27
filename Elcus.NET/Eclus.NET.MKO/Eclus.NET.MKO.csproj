@@ -80,12 +80,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Elcus.NET.Util\Elcus.NET.Util.csproj">
-      <Project>{56fc3c7a-07ed-40b4-8429-7489e1f801eb}</Project>
-      <Name>Elcus.NET.Util</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
