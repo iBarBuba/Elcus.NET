@@ -405,9 +405,11 @@ namespace Eclus.NET.MKO
                     switch (evd.Int)
                     {
                         case 1:
+                            evd.rt.Cmd = (ushort) result.awEvData[0];
+                            return;
                         case 2:
                         case 3:
-                            evd.rt.Cmd = (ushort)result.awEvData[0];
+                            evd.rt.Status = (ushort)result.awEvData[0];
                             return;
                         default:
                             return;
