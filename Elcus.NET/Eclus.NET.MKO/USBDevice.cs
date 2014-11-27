@@ -8,7 +8,7 @@ using System;
 
 namespace Eclus.NET.MKO
 {
-    internal class USBDevice : GeneralDevice, IMKODevice
+    internal sealed class USBDevice : GeneralDevice, IMKODevice
     {
         #region Private fields
 
@@ -21,6 +21,7 @@ namespace Eclus.NET.MKO
         private ushort[] m_InBuf = new ushort[4];
         private ushort[] m_OutBuf = new ushort[6];
         private int m_Result;
+        private bool m_IsDisposed;
 
 
 
@@ -238,6 +239,53 @@ namespace Eclus.NET.MKO
 
 
         #endregion
+        #region Private methods
+
+
+
+        private void _initEvents()
+        {
+            if (m_DeviceEvent.ToInt32() != -1)
+                CloseEvent(m_DeviceEvent);
+
+            m_DeviceEvent = CreateEvent();
+
+            tmkdefevent_usb(m_DeviceEvent);
+
+            ResetEvent(m_DeviceEvent);
+        }
+
+
+
+        #endregion
+        #region Overrides of GeneralDevice
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (m_IsDisposed)
+                return;
+
+            if (disposing)
+            {
+                tmkdone();
+            }
+
+            if (m_DeviceHandle != IntPtr.Zero)
+                Win32.CloseHandle(m_DeviceHandle);
+
+            if (m_DeviceEvent != IntPtr.Zero)
+                CloseEvent(m_DeviceEvent);
+
+            m_IsDisposed = true;
+
+            base.Dispose(disposing);
+        }
+
+
+
+        #endregion
         #region Public constructors
 
 
@@ -308,6 +356,9 @@ namespace Eclus.NET.MKO
         {
             if (m_DeviceHandle != IntPtr.Zero)
                 Win32.CloseHandle(m_DeviceHandle);
+            if (m_DeviceEvent != IntPtr.Zero)
+                CloseEvent(m_DeviceEvent);
+
             m_DeviceHandle = IntPtr.Zero;
             m_DeviceEvent = IntPtr.Zero;
             tmkdone_usb(m_DeviceNum);
@@ -378,18 +429,6 @@ namespace Eclus.NET.MKO
         }
 
         /// <summary>
-        /// Проинициализировать обработчики событий
-        /// </summary>
-        public void initevents()
-        {
-            m_DeviceEvent = CreateEvent();
-
-            tmkdefevent_usb(m_DeviceEvent);
-
-            ResetEvent(m_DeviceEvent);
-        }
-
-        /// <summary>
         /// Ожидание наступления события от МКО
         /// </summary>
         /// <param name="hEvent">Обработчик события</param>
@@ -419,6 +458,8 @@ namespace Eclus.NET.MKO
         {
             if ((ErrorType)bcreset_usb() != ErrorType.TMK_SUCCESSFULL)
                 throw new MKODeviceException(ErrorType.TMK_BAD_FUNC, @"Устройство не поддерживает работу в режиме КК");
+
+            _initEvents();
         }
 
         /// <summary>
@@ -557,6 +598,8 @@ namespace Eclus.NET.MKO
         {
             if ((ErrorType)rtreset_usb() != ErrorType.TMK_SUCCESSFULL)
                 throw new MKODeviceException(ErrorType.TMK_BAD_FUNC, @"Устройство не поддерживает работу в режиме ОУ");
+
+            _initEvents();
         }
 
         /// <summary>
@@ -792,18 +835,8 @@ namespace Eclus.NET.MKO
         {
             if ((ErrorType)mtreset_usb() != ErrorType.TMK_SUCCESSFULL)
                 throw new MKODeviceException(ErrorType.TMK_BAD_FUNC, @"Устройство не поддерживает работу в режиме МТ");
-        }
 
-
-
-        #endregion
-        #region Implementation of IDisposable
-
-
-
-        public void Dispose()
-        {
-            tmkdone();
+            _initEvents();
         }
 
 

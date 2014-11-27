@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Eclus.NET.MKO;
 using Eclus.NET.MKO.Data.Events;
 using Eclus.NET.MKO.Enums;
@@ -17,7 +13,8 @@ namespace SimpleTest
         {
             try
             {
-                using (var mko = new MKO())
+                MKO mko;
+                using (mko = new MKO())
                 {
                     using (var device = mko[mko.GetPossibleDeviceNumbers().FirstOrDefault()])
                     {
@@ -157,7 +154,6 @@ namespace SimpleTest
                         Console.WriteLine();
                         Console.WriteLine("Testing interrupts");
                         device.bcreset();
-                        device.initevents();
                         var evd = new TmkEventData();
 
                         device.tmkgetevd(ref evd);

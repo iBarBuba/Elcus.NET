@@ -28,10 +28,6 @@ namespace Eclus.NET.MKO.Interfaces
         /// <param name="evd"></param>
         void tmkgetevd(ref TmkEventData evd);
         /// <summary>
-        /// Проинициализировать обработчики событий
-        /// </summary>
-        void initevents();
-        /// <summary>
         /// Ожидание наступления события от МКО
         /// </summary>
         /// <param name="milliseconds">Время, мс, ожидания наступления события</param>

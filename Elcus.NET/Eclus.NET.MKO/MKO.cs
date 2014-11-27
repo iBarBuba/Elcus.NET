@@ -23,6 +23,7 @@ namespace Eclus.NET.MKO
         private readonly ushort[] m_InBuf = new ushort[4];
         private readonly ushort[] m_OutBuf = new ushort[6];
         private int m_Result;
+        private bool m_IsDisposed;
 
 
 
@@ -81,6 +82,19 @@ namespace Eclus.NET.MKO
             });
         }
 
+        private void _Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                
+            }
+
+            Enumerable.Range(0, m_DeviceHandle.Length)
+                .Where(n => m_DeviceHandle[n].ToInt32() != -1)
+                .ForEach(n => Win32.CloseHandle(m_DeviceHandle[n]));
+
+            m_IsDisposed = true;
+        }
 
 
         #endregion
@@ -95,6 +109,18 @@ namespace Eclus.NET.MKO
         public MKO()
         {
             _TmkOpen();
+        }
+
+
+
+        #endregion
+        #region Destructors
+
+
+
+        ~MKO()
+        {
+            _Dispose(false);
         }
 
 
@@ -127,6 +153,9 @@ namespace Eclus.NET.MKO
 
         public IEnumerable<int> GetPossibleDeviceNumbers()
         {
+            if (m_IsDisposed)
+                throw new ObjectDisposedException(ToString());
+
             return Enumerable.Range(0, m_DeviceHandle.Length)
                 .Where(n => m_DeviceHandle[n] == IntPtr.Zero)
                 .Select(n => n);
@@ -140,14 +169,13 @@ namespace Eclus.NET.MKO
 
 
 
-        /// <summary>
-        /// Führt anwendungsspezifische Aufgaben aus, die mit dem Freigeben, Zurückgeben oder Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
-        /// </summary>
         public void Dispose()
         {
-            Enumerable.Range(0, m_DeviceHandle.Length)
-                .Where(n => m_DeviceHandle[n].ToInt32() != -1)
-                .ForEach(n => Win32.CloseHandle(m_DeviceHandle[n]));
+            if (m_IsDisposed)
+                return;
+
+            _Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
 

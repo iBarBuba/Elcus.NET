@@ -8,6 +8,32 @@ namespace Eclus.NET.MKO
 {
     internal class PCIDevice : GeneralDevice, IMKODevice
     {
+        #region Private fields
+
+
+
+        private bool m_IsDisposed;
+
+
+
+        #endregion
+        #region Private methods
+
+
+
+        private void _Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                
+            }
+
+            m_IsDisposed = true;
+        }
+
+
+
+        #endregion
         #region Public constructors
 
 
@@ -53,14 +79,6 @@ namespace Eclus.NET.MKO
         /// </summary>
         /// <param name="evd"></param>
         public void tmkgetevd(ref TmkEventData evd)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Проинициализировать обработчики событий
-        /// </summary>
-        public void initevents()
         {
             throw new NotImplementedException();
         }
@@ -407,6 +425,11 @@ namespace Eclus.NET.MKO
 
         public void Dispose()
         {
+            if (m_IsDisposed)
+                return;
+
+            _Dispose(true);
+            GC.SuppressFinalize(ToString());
         }
 
 
