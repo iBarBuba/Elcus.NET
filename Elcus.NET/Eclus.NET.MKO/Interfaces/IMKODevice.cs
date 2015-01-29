@@ -7,6 +7,12 @@ namespace Eclus.NET.MKO.Interfaces
 {
     public interface IMKODevice : IDisposable
     {
+        /// <summary>
+        /// Подлючено ли устройство?
+        /// </summary>
+        /// <returns></returns>
+        bool IsConnected();
+
         int tmkgetmaxn();
         /// <summary>
         /// Сконфигурировать устройство

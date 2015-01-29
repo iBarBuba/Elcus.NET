@@ -305,6 +305,17 @@ namespace Eclus.NET.MKO
 
 
 
+        /// <summary>
+        /// Подлючено ли устройство?
+        /// </summary>
+        /// <returns></returns>
+        public bool IsConnected()
+        {
+            return
+                Win32.CreateFile(string.Format("\\\\.\\TMK1553BDevice{0}", m_DeviceNum), FileAccess.ReadWrite,
+                    FileShare.None, IntPtr.Zero, FileMode.Open, 128, IntPtr.Zero).ToInt32() != -1;
+        }
+
         public int tmkgetmaxn()
         {
             return m_TmkMaxNum;

@@ -50,6 +50,15 @@ namespace Eclus.NET.MKO
 
 
 
+        /// <summary>
+        /// Подлючено ли устройство?
+        /// </summary>
+        /// <returns></returns>
+        public bool IsConnected()
+        {
+            throw new NotImplementedException();
+        }
+
         public int tmkgetmaxn()
         {
             return 0;
