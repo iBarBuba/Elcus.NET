@@ -312,8 +312,14 @@ namespace Eclus.NET.MKO
         public bool IsConnected()
         {
             var fileName = string.Format("\\\\.\\EZUSB-{0}", m_DeviceNum);
-            return Win32.CreateFile(fileName, FileAccess.ReadWrite, FileShare.None, IntPtr.Zero,
+            var result = Win32.CreateFile(fileName, FileAccess.ReadWrite, FileShare.None, IntPtr.Zero,
                 FileMode.Open, 128, IntPtr.Zero).ToInt32() != -1;
+
+            if (result)
+                return true;
+
+            Win32.CloseHandle(m_DeviceHandle);
+            return false;
         }
 
         public int tmkgetmaxn()
@@ -342,7 +348,11 @@ namespace Eclus.NET.MKO
             {
                 var code = (ErrorType)tmkconfig_usb(m_DeviceNum, 9, 0, 0);
                 if (code != ErrorType.TMK_SUCCESSFULL)
+                {
+                    Win32.CloseHandle(m_DeviceHandle);
+                    m_DeviceHandle = IntPtr.Zero;
                     throw new MKODeviceException(code);
+                }
             }
             else
             {
