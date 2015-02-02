@@ -21,8 +21,10 @@ namespace SimpleTest
                         //режим ОУ
                         device.rtreset();
                         Console.WriteLine("rtreset() successfully!");
+
                         var wMaxPage = device.rtgetmaxpage();
                         Console.WriteLine("rtMaxPage = {0}", wMaxPage);
+
                         for (ushort wPage = 0; wPage <= wMaxPage; wPage++)
                         {
                             device.rtdefpage(wPage);
